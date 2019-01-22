@@ -1,9 +1,13 @@
 import React from 'react'
 
-const App = () => (
-  <div className="app">
+import { BrowserRouter, Route } from 'react-router-dom'
 
-  </div>
+import PrimaryLayout from './layouts/PrimaryLayout'
+
+const App = () => (
+  <BrowserRouter>
+    <Route path="/" component={PrimaryLayout} />
+  </BrowserRouter>
 )
 
 export default App

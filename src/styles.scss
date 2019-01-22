@@ -1,14 +1,57 @@
+html, body, #root {
+  height: 100vh;
+}
+
 body {
   margin: 0;
   padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  font-family: 'Courier New', Courier, monospace;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+* {
+  box-sizing: border-box;
+}
+
+/*** COLOR THEMES ***/
+
+$white: #fefefe;
+
+/*** BOX SHADOW ***/
+
+@mixin box-shadow($params...) {
+  -webkit-box-shadow: $params;
+  -moz-box-shadow: $params;
+  box-shadow: $params;
+}
+
+.light-shadow {
+  z-index: 50;
+  @include box-shadow(0 0.125em 0.3125em rgba(0, 0, 0, 0.16), 0 0.125em 0.3125em rgba(0, 0, 0, 0.23));
+}
+
+/*** PAGE LAYOUT ***/
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/*** PRIMARY LAYOUT ***/
+
+.primary-layout {
+  height: 100%;
+  background-color: $white;
+}
+
+.nav-bar {
+  width: 100%;
+  height: 3em;
+  background-color: $white;
+    .heading {
+      margin-block-start: 0;
+      margin-block-end: 0;
+    }
 }
