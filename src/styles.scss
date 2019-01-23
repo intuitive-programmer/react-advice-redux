@@ -39,11 +39,33 @@ $white: #fefefe;
   align-items: center;
 }
 
+.grid-container {
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1em;
+}
+
+@media only screen and (min-width: 600px) {
+  .grid-container {
+    width: 60%;
+  }
+}
+
+/*** TYPOGRAPHY ***/
+
+h3 {
+  margin-block-start: 0;
+  margin-block-end: 0.5em;
+}
+
 /*** PRIMARY LAYOUT ***/
 
 .primary-layout {
   height: 100%;
   background-color: $white;
+    header {
+      margin-bottom: 1em;
+    }
 }
 
 .nav-bar {

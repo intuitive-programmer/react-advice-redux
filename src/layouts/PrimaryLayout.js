@@ -9,9 +9,10 @@ const PrimaryLayout = () => (
     <header className="nav-bar flex-center light-shadow">
       <h3 className="heading">React Advice</h3>
     </header>
-    <main>
+    <main className="grid-container">
       <Switch>
         <Route path='/home' component={Home} />
+        <Route path='/simple-react' render={() => <div>Simple React</div>} />
         <Redirect to='/home' />
       </Switch>
     </main>
