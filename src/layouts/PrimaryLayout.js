@@ -3,6 +3,7 @@ import React from 'react'
 import { Switch, Route, Redirect } from 'react-router-dom'
 
 import Home from '../pages/Home'
+import SimpleReact from '../versions/SimpleReact'
 
 const PrimaryLayout = () => (
   <div className="primary-layout">
@@ -12,7 +13,7 @@ const PrimaryLayout = () => (
     <main className="grid-container">
       <Switch>
         <Route path='/home' component={Home} />
-        <Route path='/simple-react' render={() => <div>Simple React</div>} />
+        <Route path='/simple-react' component={SimpleReact} />
         <Redirect to='/home' />
       </Switch>
     </main>
