@@ -27,6 +27,7 @@
   > header {
     width: 100%;
     height: 2.5em;
+    margin-bottom: 0.5em;
   }
 }
 
@@ -36,4 +37,21 @@
   &:hover {
     background-color: #eee;
   }
+}
+
+/*** SAVED ADVICE ***/
+
+.saved-advice-list {
+  list-style-type: none;
+  padding-inline-start: 0;
+}
+
+.saved-advice-item {
+  width: 100%;
+  height: 2.5em;
+  border-bottom: 1px solid #cfd8dc;
+    &:hover {
+      background-color: #eee;
+      border-bottom: 1px solid #78909c;
+    }
 }
