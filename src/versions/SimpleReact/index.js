@@ -7,6 +7,7 @@ import AdviceSlipAPI from '../../apis/AdviceSlip'
 class SimpleReact extends Component {
   state = {
     currentAdviceSlip: null,
+    currentIndex: 0,
     adviceSlips: [],
     savedAdvice: []
   }
@@ -43,30 +44,33 @@ class SimpleReact extends Component {
   }
 
   getNextAdviceSlip = () => {
-    const { currentAdviceSlip, adviceSlips } = this.state
-
-    const currentIndex = adviceSlips
-      .findIndex(slip => slip.slip_id === currentAdviceSlip.slip_id)
+    const { currentIndex, adviceSlips } = this.state
 
     const nextAdviceSlip = adviceSlips[currentIndex + 1]
 
     if (nextAdviceSlip) {
-      this.setState({ currentAdviceSlip: nextAdviceSlip })
+      this.setState({
+        currentAdviceSlip: nextAdviceSlip,
+        currentIndex: currentIndex + 1
+      })
     } else {
       this.getRandomAdviceSlip()
+      this.setState({
+        currentIndex: currentIndex + 1
+      })
     }
   }
 
   getPreviousAdviceSlip = () => {
-    const { currentAdviceSlip, adviceSlips } = this.state
-
-    const currentIndex = adviceSlips
-      .findIndex(slip => slip.slip_id === currentAdviceSlip.slip_id)
+    const { currentIndex, adviceSlips } = this.state
     
     const prevAdviceSlip = adviceSlips[currentIndex - 1]
 
     if (prevAdviceSlip) {
-      this.setState({ currentAdviceSlip: prevAdviceSlip })
+      this.setState({
+        currentAdviceSlip: prevAdviceSlip,
+        currentIndex: currentIndex - 1
+      })
     }
   }
 
@@ -89,6 +93,7 @@ class SimpleReact extends Component {
   render() {
     const { currentAdviceSlip, savedAdvice } = this.state
     const { history } = this.props
+    console.log(this.state)
     return(
       <div className="simple-react-layout">
         <header className="grid-container">
