@@ -39,9 +39,12 @@ class SimpleReact extends Component {
 
   hydrateStateWithLocalStorage = () => {
     const savedAdvice = localStorage.getItem("savedAdvice")
-    this.setState({
-      savedAdvice: JSON.parse(savedAdvice)
-    })
+
+    if (savedAdvice) {
+      this.setState({
+        savedAdvice: JSON.parse(savedAdvice)
+      })
+    }
   }
 
   getNextAdviceSlip = () => {
@@ -77,7 +80,7 @@ class SimpleReact extends Component {
 
   saveCurrentAdviceSlip = () => {
     const { currentAdviceSlip, savedAdvice } = this.state
-
+    
     const alreadySaved = savedAdvice
       .find(slip => slip.slip_id === currentAdviceSlip.slip_id)
 
