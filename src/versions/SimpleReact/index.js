@@ -14,12 +14,51 @@ class SimpleReact extends Component {
     this.getRandomAdviceSlip()
   }
 
-  getRandomAdviceSlip = () => {
-    AdviceSlipAPI.getRandomAdviceSlip()
-      .then(data => this.setState(state => ({
-        currentAdviceSlip: data.slip,
-        adviceSlips: [...state.adviceSlips, data.slip]
-      })))
+  async getRandomAdviceSlip() {
+    const { adviceSlips } = this.state
+    const randomSlip = await AdviceSlipAPI
+      .getRandomAdviceSlip()
+      .then(data => data.slip) 
+    
+    const alreadyExists = adviceSlips
+      .find(slip => slip.slip_id === randomSlip.slip_id)
+
+    if (alreadyExists) {
+      this.getRandomAdviceSlip()
+    } else {
+      this.setState(state => ({
+        currentAdviceSlip: randomSlip,
+        adviceSlips: [...state.adviceSlips, randomSlip]
+      }))
+    }
+  }
+
+  getNextAdviceSlip = () => {
+    const { currentAdviceSlip, adviceSlips } = this.state
+
+    const currentIndex = adviceSlips
+      .findIndex(slip => slip.slip_id === currentAdviceSlip.slip_id)
+
+    const nextAdviceSlip = adviceSlips[currentIndex + 1]
+
+    if (nextAdviceSlip) {
+      this.setState({ currentAdviceSlip: nextAdviceSlip })
+    } else {
+      this.getRandomAdviceSlip()
+    }
+  }
+
+  getPreviousAdviceSlip = () => {
+    const { currentAdviceSlip, adviceSlips } = this.state
+
+    const currentIndex = adviceSlips
+      .findIndex(slip => slip.slip_id === currentAdviceSlip.slip_id)
+    
+    const prevAdviceSlip = adviceSlips[currentIndex - 1]
+
+    if (prevAdviceSlip) {
+      this.setState({ currentAdviceSlip: prevAdviceSlip })
+    }
   }
 
   render() {
@@ -30,7 +69,8 @@ class SimpleReact extends Component {
         <header className="grid-container">
           <AdviceSlip
             adviceSlip={currentAdviceSlip}
-            getRandomAdviceSlip={this.getRandomAdviceSlip}
+            getNextAdviceSlip={this.getNextAdviceSlip}
+            getPreviousAdviceSlip={this.getPreviousAdviceSlip}
           />
         </header>
         <main>

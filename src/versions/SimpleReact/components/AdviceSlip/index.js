@@ -2,7 +2,7 @@ import React, { Fragment } from 'react'
 
 import Button from './Button'
 
-const AdviceSlip = ({ adviceSlip, getRandomAdviceSlip }) => {
+const AdviceSlip = ({ adviceSlip, getNextAdviceSlip, getPreviousAdviceSlip }) => {
   return(
     <Fragment>
       <div className="advice-slip flex-center light-shadow">
@@ -11,10 +11,12 @@ const AdviceSlip = ({ adviceSlip, getRandomAdviceSlip }) => {
         </p>
       </div>
       <div className="advice-slip-btns flex-center">
-        <Button>PREV</Button>
+        <Button
+          onClick={getPreviousAdviceSlip}
+        >PREV</Button>
         <Button>SAVE</Button>
         <Button
-          onClick={getRandomAdviceSlip}
+          onClick={getNextAdviceSlip}
         >NEXT</Button>
       </div>
     </Fragment>
