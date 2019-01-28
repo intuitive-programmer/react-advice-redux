@@ -115,10 +115,25 @@ class SimpleReact extends Component {
     })
   }
 
+  deleteSavedAdvice = ()  => {
+    const { currentAdviceSlip, savedAdvice } = this.state
+
+    const updatedSavedAdvice = savedAdvice
+      .filter(slip => slip.slip_id !== currentAdviceSlip.slip_id)
+
+    this.setState({
+      savedAdvice: updatedSavedAdvice,
+    })
+
+    localStorage
+      .setItem("savedAdvice", JSON.stringify(updatedSavedAdvice))
+
+    this.hideSavedAdviceSlip()
+  }
+
   render() {
     const { currentAdviceSlip, savedAdvice, displaySavedAdviceSlip } = this.state
     const { history } = this.props
-    console.log(this.state)
     return(
       <div className="simple-react-layout">
         <header className="grid-container">
@@ -129,6 +144,7 @@ class SimpleReact extends Component {
             getPreviousAdviceSlip={this.getPreviousAdviceSlip}
             saveCurrentAdviceSlip={this.saveCurrentAdviceSlip}
             hideSavedAdviceSlip={this.hideSavedAdviceSlip}
+            deleteSavedAdvice={this.deleteSavedAdvice}
           />
         </header>
         <main>

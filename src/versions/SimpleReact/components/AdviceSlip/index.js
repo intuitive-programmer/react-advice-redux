@@ -8,7 +8,8 @@ const AdviceSlip = ({
   getNextAdviceSlip,
   getPreviousAdviceSlip,
   saveCurrentAdviceSlip,
-  hideSavedAdviceSlip }) => {
+  hideSavedAdviceSlip,
+  deleteSavedAdvice }) => {
   
   const renderNavBtns = () => (
     <Fragment>
@@ -24,10 +25,15 @@ const AdviceSlip = ({
     </Fragment>
   )
 
-  const renderBackBtn = () => (
-    <Button
-      onClick={hideSavedAdviceSlip}
-    >BACK</Button>
+  const renderBackAndDeleteBtn = () => (
+    <Fragment>
+      <Button
+        onClick={hideSavedAdviceSlip}
+      >BACK</Button>
+      <Button
+        onClick={deleteSavedAdvice}
+      >DELETE</Button>
+    </Fragment>
   )
 
   return(
@@ -40,7 +46,7 @@ const AdviceSlip = ({
       <div className="advice-slip-btns flex-center">
         {displayNavBtns
           ? renderNavBtns()
-          : renderBackBtn()
+          : renderBackAndDeleteBtn()
         }
       </div>
     </Fragment>
