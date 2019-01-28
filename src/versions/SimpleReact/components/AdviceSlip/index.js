@@ -5,8 +5,10 @@ import Button from './Button'
 const AdviceSlip = ({ adviceSlip }) => {
   return(
     <Fragment>
-      <div className="advice-slip light-shadow">
-        {adviceSlip && adviceSlip.advice}
+      <div className="advice-slip flex-center light-shadow">
+        <p>
+          {adviceSlip && adviceSlip.advice}
+        </p>
       </div>
       <div className="advice-slip-btns flex-center">
         <Button>PREV</Button>
