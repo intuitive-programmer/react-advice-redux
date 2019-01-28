@@ -7,7 +7,8 @@ const AdviceSlip = ({
   displayNavBtns,
   getNextAdviceSlip,
   getPreviousAdviceSlip,
-  saveCurrentAdviceSlip }) => {
+  saveCurrentAdviceSlip,
+  hideSavedAdviceSlip }) => {
   
   const renderNavBtns = () => (
     <Fragment>
@@ -24,7 +25,9 @@ const AdviceSlip = ({
   )
 
   const renderBackBtn = () => (
-    <Button>BACK</Button>
+    <Button
+      onClick={hideSavedAdviceSlip}
+    >BACK</Button>
   )
 
   return(

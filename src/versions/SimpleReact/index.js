@@ -103,6 +103,15 @@ class SimpleReact extends Component {
     })
   }
 
+  hideSavedAdviceSlip = () => {
+    const { currentIndex, adviceSlips } = this.state
+
+    this.setState({
+      currentAdviceSlip: adviceSlips[currentIndex],
+      displaySavedAdviceSlip: false
+    })
+  }
+
   render() {
     const { currentAdviceSlip, savedAdvice, displaySavedAdviceSlip } = this.state
     const { history } = this.props
@@ -116,6 +125,7 @@ class SimpleReact extends Component {
             getNextAdviceSlip={this.getNextAdviceSlip}
             getPreviousAdviceSlip={this.getPreviousAdviceSlip}
             saveCurrentAdviceSlip={this.saveCurrentAdviceSlip}
+            hideSavedAdviceSlip={this.hideSavedAdviceSlip}
           />
         </header>
         <main>
