@@ -7,7 +7,8 @@ import AdviceSlipAPI from '../../apis/AdviceSlip'
 class SimpleReact extends Component {
   state = {
     currentAdviceSlip: null,
-    adviceSlips: []
+    adviceSlips: [],
+    savedAdvice: []
   }
 
   componentDidMount() {
@@ -61,6 +62,22 @@ class SimpleReact extends Component {
     }
   }
 
+  saveCurrentAdviceSlip = () => {
+    const { currentAdviceSlip, savedAdvice } = this.state
+
+    const alreadySaved = savedAdvice
+      .find(slip => slip.slip_id === currentAdviceSlip.slip_id)
+
+    if (alreadySaved) return
+
+    const updatedSavedAdvice = [...savedAdvice, currentAdviceSlip]
+
+    this.setState({ savedAdvice: updatedSavedAdvice })
+
+    localStorage
+      .setItem("savedAdvice", JSON.stringify(updatedSavedAdvice))
+  }
+
   render() {
     const { currentAdviceSlip } = this.state
     const { history } = this.props
@@ -71,6 +88,7 @@ class SimpleReact extends Component {
             adviceSlip={currentAdviceSlip}
             getNextAdviceSlip={this.getNextAdviceSlip}
             getPreviousAdviceSlip={this.getPreviousAdviceSlip}
+            saveCurrentAdviceSlip={this.saveCurrentAdviceSlip}
           />
         </header>
         <main>
