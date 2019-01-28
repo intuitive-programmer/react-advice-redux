@@ -2,11 +2,11 @@ import React, { Fragment } from 'react'
 
 import Button from './Button'
 
-const AdviceSlip = () => {
+const AdviceSlip = ({ adviceSlip }) => {
   return(
     <Fragment>
       <div className="advice-slip light-shadow">
-          
+        {adviceSlip && adviceSlip.advice}
       </div>
       <div className="advice-slip-btns flex-center">
         <Button>PREV</Button>
