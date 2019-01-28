@@ -4,9 +4,29 @@ import Button from './Button'
 
 const AdviceSlip = ({
   adviceSlip,
+  displayNavBtns,
   getNextAdviceSlip,
   getPreviousAdviceSlip,
   saveCurrentAdviceSlip }) => {
+  
+  const renderNavBtns = () => (
+    <Fragment>
+      <Button
+        onClick={getPreviousAdviceSlip}
+      >PREV</Button>
+      <Button
+        onClick={saveCurrentAdviceSlip}
+      >SAVE</Button>
+      <Button
+        onClick={getNextAdviceSlip}
+      >NEXT</Button>
+    </Fragment>
+  )
+
+  const renderBackBtn = () => (
+    <Button>BACK</Button>
+  )
+
   return(
     <Fragment>
       <div className="advice-slip flex-center light-shadow">
@@ -15,15 +35,10 @@ const AdviceSlip = ({
         </p>
       </div>
       <div className="advice-slip-btns flex-center">
-        <Button
-          onClick={getPreviousAdviceSlip}
-        >PREV</Button>
-        <Button
-          onClick={saveCurrentAdviceSlip}
-        >SAVE</Button>
-        <Button
-          onClick={getNextAdviceSlip}
-        >NEXT</Button>
+        {displayNavBtns
+          ? renderNavBtns()
+          : renderBackBtn()
+        }
       </div>
     </Fragment>
   )

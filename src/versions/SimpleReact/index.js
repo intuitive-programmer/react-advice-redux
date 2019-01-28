@@ -9,7 +9,8 @@ class SimpleReact extends Component {
     currentAdviceSlip: null,
     currentIndex: 0,
     adviceSlips: [],
-    savedAdvice: []
+    savedAdvice: [],
+    displaySavedAdviceSlip: false
   }
 
   componentDidMount() {
@@ -90,8 +91,20 @@ class SimpleReact extends Component {
       .setItem("savedAdvice", JSON.stringify(updatedSavedAdvice))
   }
 
+  displaySavedAdviceSlip = id => {
+    const { savedAdvice } = this.state
+
+    const selectedSlip = savedAdvice
+      .find(slip => slip.slip_id === id)
+
+    this.setState({
+      currentAdviceSlip: selectedSlip,
+      displaySavedAdviceSlip: true
+    })
+  }
+
   render() {
-    const { currentAdviceSlip, savedAdvice } = this.state
+    const { currentAdviceSlip, savedAdvice, displaySavedAdviceSlip } = this.state
     const { history } = this.props
     console.log(this.state)
     return(
@@ -99,6 +112,7 @@ class SimpleReact extends Component {
         <header className="grid-container">
           <AdviceSlip
             adviceSlip={currentAdviceSlip}
+            displayNavBtns={!displaySavedAdviceSlip}
             getNextAdviceSlip={this.getNextAdviceSlip}
             getPreviousAdviceSlip={this.getPreviousAdviceSlip}
             saveCurrentAdviceSlip={this.saveCurrentAdviceSlip}
@@ -107,7 +121,8 @@ class SimpleReact extends Component {
         <main>
           <TabLayout
             history={history}
-            savedAdvice={savedAdvice}  
+            savedAdvice={savedAdvice}
+            displaySavedAdviceSlip={this.displaySavedAdviceSlip}
           />
         </main>
       </div>

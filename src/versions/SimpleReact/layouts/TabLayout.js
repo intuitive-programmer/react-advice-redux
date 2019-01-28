@@ -27,7 +27,7 @@ class TabLayout extends Component {
 
   render() {
     const { activeTabIndex } = this.state
-    const { savedAdvice } = this.props
+    const { savedAdvice, displaySavedAdviceSlip } = this.props
     return(
       <div className="tab-layout">
         <header className="flex-center light-shadow">
@@ -52,6 +52,7 @@ class TabLayout extends Component {
                 <SavedAdvice
                   {...routerProps}
                   savedAdvice={savedAdvice}
+                  displaySavedAdviceSlip={displaySavedAdviceSlip}
                 />
               }
             />
