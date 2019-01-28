@@ -13,6 +13,7 @@ class SimpleReact extends Component {
 
   componentDidMount() {
     this.getRandomAdviceSlip()
+    this.hydrateStateWithLocalStorage()
   }
 
   async getRandomAdviceSlip() {
@@ -32,6 +33,13 @@ class SimpleReact extends Component {
         adviceSlips: [...state.adviceSlips, randomSlip]
       }))
     }
+  }
+
+  hydrateStateWithLocalStorage = () => {
+    const savedAdvice = localStorage.getItem("savedAdvice")
+    this.setState({
+      savedAdvice: JSON.parse(savedAdvice)
+    })
   }
 
   getNextAdviceSlip = () => {
@@ -79,7 +87,7 @@ class SimpleReact extends Component {
   }
 
   render() {
-    const { currentAdviceSlip } = this.state
+    const { currentAdviceSlip, savedAdvice } = this.state
     const { history } = this.props
     return(
       <div className="simple-react-layout">
@@ -92,7 +100,10 @@ class SimpleReact extends Component {
           />
         </header>
         <main>
-          <TabLayout history={history} />
+          <TabLayout
+            history={history}
+            savedAdvice={savedAdvice}  
+          />
         </main>
       </div>
     )

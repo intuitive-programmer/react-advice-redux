@@ -27,6 +27,7 @@ class TabLayout extends Component {
 
   render() {
     const { activeTabIndex } = this.state
+    const { savedAdvice } = this.props
     return(
       <div className="tab-layout">
         <header className="flex-center light-shadow">
@@ -45,7 +46,15 @@ class TabLayout extends Component {
         </header>
         <main>
           <Switch>
-            <Route path='/simple-react/saved-advice' component={SavedAdvice} />
+            <Route
+              path='/simple-react/saved-advice'
+              render={routerProps =>
+                <SavedAdvice
+                  {...routerProps}
+                  savedAdvice={savedAdvice}
+                />
+              }
+            />
             <Route path='/simple-react/user-profile' />
             <Redirect to='/simple-react/saved-advice' />
           </Switch>

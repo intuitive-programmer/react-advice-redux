@@ -61,9 +61,16 @@
 .saved-advice-item {
   width: 100%;
   height: 2.5em;
+  line-height: 2.5em;
   border-bottom: 1px solid #cfd8dc;
     &:hover {
       background-color: #eee;
       border-bottom: 1px solid #78909c;
     }
+}
+
+.ellipsis {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
