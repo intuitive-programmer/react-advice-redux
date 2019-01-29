@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'react-redux'
 
 import List from '../components/SavedAdvice/List'
 import Item from '../components/SavedAdvice/Item'
@@ -23,4 +24,9 @@ const SavedAdvice = ({ savedAdvice, displaySavedAdviceSlip }) => {
     </div>
   )
 }
-export default SavedAdvice
+
+const mapStateToProps = state => ({
+  savedAdvice: state.savedAdvice
+})
+
+export default connect(mapStateToProps)(SavedAdvice)

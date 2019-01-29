@@ -5,6 +5,17 @@ import Button from './Button'
 
 class AdviceSlip extends Component {
 
+  saveAdviceSlip = () => {
+    const { save, adviceSlip, savedAdvice } = this.props
+
+    const alreadySaved = savedAdvice
+      .find(slip => slip.slip_id === adviceSlip.slip_id)
+
+    if (alreadySaved) return
+
+    save(adviceSlip)
+  }
+
   render() {
     const { adviceSlip, displayNavBtns } = this.props
     return(
@@ -32,7 +43,7 @@ class AdviceSlip extends Component {
           onClick={() => updateCurrentIndex("DECREASE")}
         >PREV</Button>
         <Button
-          // onClick={saveCurrentAdviceSlip}
+          onClick={this.saveAdviceSlip}
         >SAVE</Button>
         <Button
           onClick={getNextAdviceSlip}
@@ -57,11 +68,13 @@ class AdviceSlip extends Component {
 }
 
 const mapStateToProps = state => ({
-  adviceSlip: state.adviceSlips[state.currentIndex]
+  adviceSlip: state.adviceSlips[state.currentIndex],
+  savedAdvice: state.savedAdvice
 })
 
 const mapDispatchToProps = dispatch => ({
-  updateCurrentIndex: type => dispatch({ type })
+  updateCurrentIndex: type => dispatch({ type }),
+  save: adviceSlipToSave => dispatch({ type: "SAVE_ADVICE_SLIP", adviceSlipToSave })
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(AdviceSlip)

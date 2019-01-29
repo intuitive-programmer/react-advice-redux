@@ -7,13 +7,11 @@ import AdviceSlipAPI from '../../apis/AdviceSlip'
 
 class ReactWithRedux extends Component {
   state = {
-    savedAdvice: [],
     displaySavedAdviceSlip: false
   }
 
   componentDidMount() {
     this.getRandomAdviceSlip()
-    this.hydrateStateWithLocalStorage()
   }
 
   async getRandomAdviceSlip() {
@@ -32,16 +30,6 @@ class ReactWithRedux extends Component {
     }
   }
 
-  hydrateStateWithLocalStorage = () => {
-    const savedAdvice = localStorage.getItem("savedAdvice")
-
-    if (savedAdvice) {
-      this.setState({
-        savedAdvice: JSON.parse(savedAdvice)
-      })
-    }
-  }
-
   getNextAdviceSlip = () => {
     const { adviceSlips, currentIndex, updateCurrentIndex } = this.props
 
@@ -53,22 +41,6 @@ class ReactWithRedux extends Component {
       this.getRandomAdviceSlip()
       updateCurrentIndex("INCREASE")
     }
-  }
-
-  saveCurrentAdviceSlip = () => {
-    const { currentAdviceSlip, savedAdvice } = this.state
-    
-    const alreadySaved = savedAdvice
-      .find(slip => slip.slip_id === currentAdviceSlip.slip_id)
-
-    if (alreadySaved) return
-
-    const updatedSavedAdvice = [...savedAdvice, currentAdviceSlip]
-
-    this.setState({ savedAdvice: updatedSavedAdvice })
-
-    localStorage
-      .setItem("savedAdvice", JSON.stringify(updatedSavedAdvice))
   }
 
   displaySavedAdviceSlip = id => {
@@ -109,7 +81,7 @@ class ReactWithRedux extends Component {
   }
 
   render() {
-    const { savedAdvice, displaySavedAdviceSlip } = this.state
+    const { displaySavedAdviceSlip } = this.state
     const { history } = this.props
     return(
       <div className="react-advice-layout">
@@ -117,7 +89,6 @@ class ReactWithRedux extends Component {
           <AdviceSlip
             displayNavBtns={!displaySavedAdviceSlip}
             getNextAdviceSlip={this.getNextAdviceSlip}
-            saveCurrentAdviceSlip={this.saveCurrentAdviceSlip}
             hideSavedAdviceSlip={this.hideSavedAdviceSlip}
             deleteSavedAdvice={this.deleteSavedAdvice}
           />
@@ -125,7 +96,6 @@ class ReactWithRedux extends Component {
         <main>
           <TabLayout
             history={history}
-            savedAdvice={savedAdvice}
             displaySavedAdviceSlip={this.displaySavedAdviceSlip}
           />
         </main>
