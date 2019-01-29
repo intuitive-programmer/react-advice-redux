@@ -5,6 +5,11 @@ import Button from './Button'
 import { getRandomAdviceSlip } from '../../../../reducers/AdviceSlipsReducer'
 
 class AdviceSlip extends Component {
+  componentDidMount() {
+    const { getRandomAdviceSlip, adviceSlips } = this.props
+    getRandomAdviceSlip(adviceSlips)
+  }
+
   render() {
     const { adviceSlip, displayNavBtns } = this.props
     return(
