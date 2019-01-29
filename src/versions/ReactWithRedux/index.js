@@ -135,7 +135,7 @@ class ReactWithRedux extends Component {
     const { currentAdviceSlip, savedAdvice, displaySavedAdviceSlip } = this.state
     const { history } = this.props
     return(
-      <div className="react-with-redux-layout">
+      <div className="react-advice-layout">
         <header className="grid-container">
           <AdviceSlip
             adviceSlip={currentAdviceSlip}

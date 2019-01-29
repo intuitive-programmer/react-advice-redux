@@ -73,11 +73,21 @@ h3 {
 .nav-bar {
   width: 100%;
   height: 3em;
+  position: relative;
+  justify-content: flex-start;
   background-color: $white;
     .heading {
       margin-block-start: 0;
       margin-block-end: 0;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%)
     }
 }
 
-@import './versions/SimpleReact/styles'
+.home-link {
+  position: absolute;
+  left: 2em;
+}
+
+@import './versions/styles';

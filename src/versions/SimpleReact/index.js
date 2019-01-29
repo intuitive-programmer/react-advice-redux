@@ -135,7 +135,7 @@ class SimpleReact extends Component {
     const { currentAdviceSlip, savedAdvice, displaySavedAdviceSlip } = this.state
     const { history } = this.props
     return(
-      <div className="simple-react-layout">
+      <div className="react-advice-layout">
         <header className="grid-container">
           <AdviceSlip
             adviceSlip={currentAdviceSlip}
