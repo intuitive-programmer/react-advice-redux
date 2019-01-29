@@ -4,6 +4,7 @@ import { Switch, Route, Redirect } from 'react-router-dom'
 
 import Home from '../pages/Home'
 import SimpleReact from '../versions/SimpleReact'
+import ReactWithRedux from '../versions/ReactWithRedux'
 
 const PrimaryLayout = () => (
   <div className="primary-layout">
@@ -14,6 +15,7 @@ const PrimaryLayout = () => (
       <Switch>
         <Route path='/home' component={Home} />
         <Route path='/simple-react' component={SimpleReact} />
+        <Route path='/react-with-redux' component={ReactWithRedux} />
         <Redirect to='/home' />
       </Switch>
     </main>

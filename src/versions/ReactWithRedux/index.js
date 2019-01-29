@@ -4,7 +4,7 @@ import AdviceSlip from './components/AdviceSlip'
 import TabLayout from './layouts/TabLayout'
 import AdviceSlipAPI from '../../apis/AdviceSlip'
 
-class SimpleReact extends Component {
+class ReactWithRedux extends Component {
   state = {
     currentAdviceSlip: null,
     currentIndex: 0,
@@ -135,7 +135,7 @@ class SimpleReact extends Component {
     const { currentAdviceSlip, savedAdvice, displaySavedAdviceSlip } = this.state
     const { history } = this.props
     return(
-      <div className="simple-react-layout">
+      <div className="react-with-redux-layout">
         <header className="grid-container">
           <AdviceSlip
             adviceSlip={currentAdviceSlip}
@@ -159,4 +159,4 @@ class SimpleReact extends Component {
   }
 }
 
-export default SimpleReact
+export default ReactWithRedux

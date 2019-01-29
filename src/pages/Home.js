@@ -9,6 +9,9 @@ const Home = () => (
       <Link to='/simple-react'>
         <li>Simple React</li>
       </Link>
+      <Link to='/react-with-redux'>
+        <li>React with Redux</li>
+      </Link>
     </ul>
   </div>
 )

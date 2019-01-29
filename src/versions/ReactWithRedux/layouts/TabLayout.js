@@ -14,11 +14,11 @@ class TabLayout extends Component {
     switch (event.target.id) {
       case "saved":
       this.setState({ activeTabIndex: 0 })
-      history.push('/simple-react/saved-advice')
+      history.push('/react-with-redux/saved-advice')
       break
       case "user":
       this.setState({ activeTabIndex: 1 })
-      history.push('/simple-react/user-profile')
+      history.push('/react-with-redux/user-profile')
       break
       default:
       this.setState({ activeTabIndex: 0 })
@@ -47,7 +47,7 @@ class TabLayout extends Component {
         <main>
           <Switch>
             <Route
-              path='/simple-react/saved-advice'
+              path='/react-with-redux/saved-advice'
               render={routerProps =>
                 <SavedAdvice
                   {...routerProps}
@@ -56,8 +56,8 @@ class TabLayout extends Component {
                 />
               }
             />
-            <Route path='/simple-react/user-profile' />
-            <Redirect to='/simple-react/saved-advice' />
+            <Route path='/react-with-redux/user-profile' />
+            <Redirect to='/react-with-redux/saved-advice' />
           </Switch>
         </main>
       </div>
