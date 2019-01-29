@@ -30,7 +30,9 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  select: selectedAdviceSlip => dispatch({ type: "SELECT_ADVICE_SLIP", selectedAdviceSlip })
+  select: selectedAdviceSlip => dispatch({
+    type: "SELECT_ADVICE_SLIP", selectedAdviceSlip
+  })
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SavedAdvice)

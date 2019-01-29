@@ -61,7 +61,9 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  addAdviceSlip: adviceSlipToAdd => dispatch({ type: "ADD_ADVICE_SLIP", adviceSlipToAdd }),
+  addAdviceSlip: adviceSlipToAdd => dispatch({
+    type: "ADD_ADVICE_SLIP", adviceSlipToAdd
+  }),
   updateCurrentIndex: type => dispatch({ type })
 })
 
