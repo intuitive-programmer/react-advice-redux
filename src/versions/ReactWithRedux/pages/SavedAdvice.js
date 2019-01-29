@@ -4,12 +4,12 @@ import { connect } from 'react-redux'
 import List from '../components/SavedAdvice/List'
 import Item from '../components/SavedAdvice/Item'
 
-const SavedAdvice = ({ savedAdvice, displaySavedAdviceSlip }) => {
+const SavedAdvice = ({ savedAdvice, select }) => {
   const renderSavedAdvice = () => (
     savedAdvice.map((slip, index) => (
       <Item
         key={index}
-        onClick={() => displaySavedAdviceSlip(slip.slip_id)}
+        onClick={() => select(slip)}
       >
         {slip.advice}
       </Item>
@@ -29,4 +29,8 @@ const mapStateToProps = state => ({
   savedAdvice: state.savedAdvice
 })
 
-export default connect(mapStateToProps)(SavedAdvice)
+const mapDispatchToProps = dispatch => ({
+  select: selectedAdviceSlip => dispatch({ type: "SELECT_ADVICE_SLIP", selectedAdviceSlip })
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(SavedAdvice)

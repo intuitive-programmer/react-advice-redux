@@ -27,7 +27,6 @@ class TabLayout extends Component {
 
   render() {
     const { activeTabIndex } = this.state
-    const { displaySavedAdviceSlip } = this.props
     return(
       <div className="tab-layout">
         <header className="flex-center light-shadow">
@@ -48,12 +47,7 @@ class TabLayout extends Component {
           <Switch>
             <Route
               path='/react-with-redux/saved-advice'
-              render={routerProps =>
-                <SavedAdvice
-                  {...routerProps}
-                  displaySavedAdviceSlip={displaySavedAdviceSlip}
-                />
-              }
+              component={SavedAdvice}
             />
             <Route path='/react-with-redux/user-profile' />
             <Redirect to='/react-with-redux/saved-advice' />

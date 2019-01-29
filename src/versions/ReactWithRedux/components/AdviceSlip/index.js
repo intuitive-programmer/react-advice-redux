@@ -68,13 +68,17 @@ class AdviceSlip extends Component {
 }
 
 const mapStateToProps = state => ({
-  adviceSlip: state.adviceSlips[state.currentIndex],
-  savedAdvice: state.savedAdvice
+  adviceSlip: state.selectedAdviceSlip
+    ? state.selectedAdviceSlip
+    : state.adviceSlips[state.currentIndex],
+  savedAdvice: state.savedAdvice,
+  displayNavBtns: !state.selectedAdviceSlip
 })
 
 const mapDispatchToProps = dispatch => ({
   updateCurrentIndex: type => dispatch({ type }),
-  save: adviceSlipToSave => dispatch({ type: "SAVE_ADVICE_SLIP", adviceSlipToSave })
+  save: adviceSlipToSave => dispatch({ type: "SAVE_ADVICE_SLIP", adviceSlipToSave }),
+  hideSavedAdviceSlip: () => dispatch({ type: "DESELECT" })
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(AdviceSlip)
