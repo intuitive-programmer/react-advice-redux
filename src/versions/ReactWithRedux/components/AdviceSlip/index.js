@@ -53,14 +53,17 @@ class AdviceSlip extends Component {
   }
 
   renderBackAndDeleteBtn = () => {
-    const { hideSavedAdviceSlip, deleteSavedAdvice } = this.props
+    const { hideSavedAdviceSlip, deleteSavedAdvice, adviceSlip } = this.props
     return(
       <Fragment>
         <Button
           onClick={hideSavedAdviceSlip}
         >BACK</Button>
         <Button
-          onClick={deleteSavedAdvice}
+          onClick={() => {
+            deleteSavedAdvice(adviceSlip)
+            hideSavedAdviceSlip()
+          }}
         >DELETE</Button>
       </Fragment>
     )
@@ -77,7 +80,12 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   updateCurrentIndex: type => dispatch({ type }),
-  save: adviceSlipToSave => dispatch({ type: "SAVE_ADVICE_SLIP", adviceSlipToSave }),
+  save: adviceSlipToSave => dispatch({
+    type: "SAVE_ADVICE_SLIP", adviceSlipToSave
+  }),
+  deleteSavedAdvice: adviceSlipToDelete => dispatch({
+    type: "DELETE_ADVICE_SLIP", adviceSlipToDelete
+  }),
   hideSavedAdviceSlip: () => dispatch({ type: "DESELECT" })
 })
 

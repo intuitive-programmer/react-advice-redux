@@ -40,31 +40,12 @@ class ReactWithRedux extends Component {
     }
   }
 
-  deleteSavedAdvice = ()  => {
-    const { currentAdviceSlip, savedAdvice } = this.state
-
-    const updatedSavedAdvice = savedAdvice
-      .filter(slip => slip.slip_id !== currentAdviceSlip.slip_id)
-
-    this.setState({
-      savedAdvice: updatedSavedAdvice,
-    })
-
-    localStorage
-      .setItem("savedAdvice", JSON.stringify(updatedSavedAdvice))
-
-    this.hideSavedAdviceSlip()
-  }
-
   render() {
     const { history } = this.props
     return(
       <div className="react-advice-layout">
         <header className="grid-container">
-          <AdviceSlip
-            getNextAdviceSlip={this.getNextAdviceSlip}
-            deleteSavedAdvice={this.deleteSavedAdvice}
-          />
+          <AdviceSlip getNextAdviceSlip={this.getNextAdviceSlip} />
         </header>
         <main>
           <TabLayout history={history} />
