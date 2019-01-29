@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
 import AdviceSlip from './components/AdviceSlip'
 import TabLayout from './layouts/TabLayout'
@@ -8,7 +9,6 @@ class ReactWithRedux extends Component {
   state = {
     currentAdviceSlip: null,
     currentIndex: 0,
-    adviceSlips: [],
     savedAdvice: [],
     displaySavedAdviceSlip: false
   }
@@ -19,21 +19,21 @@ class ReactWithRedux extends Component {
   }
 
   async getRandomAdviceSlip() {
-    const { adviceSlips } = this.state
-    const randomSlip = await AdviceSlipAPI
+    const { adviceSlips, addAdviceSlip } = this.props
+    const adviceSlipToAdd = await AdviceSlipAPI
       .getRandomAdviceSlip()
       .then(data => data.slip) 
     
     const alreadyExists = adviceSlips
-      .find(slip => slip.slip_id === randomSlip.slip_id)
+      .find(slip => slip.slip_id === adviceSlipToAdd.slip_id)
 
     if (alreadyExists) {
       this.getRandomAdviceSlip()
     } else {
       this.setState(state => ({
-        currentAdviceSlip: randomSlip,
-        adviceSlips: [...state.adviceSlips, randomSlip]
+        currentAdviceSlip: adviceSlipToAdd
       }))
+      addAdviceSlip(adviceSlipToAdd)
     }
   }
 
@@ -48,7 +48,8 @@ class ReactWithRedux extends Component {
   }
 
   getNextAdviceSlip = () => {
-    const { currentIndex, adviceSlips } = this.state
+    const { currentIndex } = this.state
+    const { adviceSlips } = this.props
 
     const nextAdviceSlip = adviceSlips[currentIndex + 1]
 
@@ -66,8 +67,9 @@ class ReactWithRedux extends Component {
   }
 
   getPreviousAdviceSlip = () => {
-    const { currentIndex, adviceSlips } = this.state
-    
+    const { currentIndex } = this.state
+    const { adviceSlips } = this.props
+
     const prevAdviceSlip = adviceSlips[currentIndex - 1]
 
     if (prevAdviceSlip) {
@@ -107,7 +109,8 @@ class ReactWithRedux extends Component {
   }
 
   hideSavedAdviceSlip = () => {
-    const { currentIndex, adviceSlips } = this.state
+    const { currentIndex } = this.state
+    const { adviceSlips } = this.props
 
     this.setState({
       currentAdviceSlip: adviceSlips[currentIndex],
@@ -159,4 +162,12 @@ class ReactWithRedux extends Component {
   }
 }
 
-export default ReactWithRedux
+const mapStateToProps = state => ({
+  adviceSlips: state.adviceSlips
+})
+
+const mapDispatchToProps = dispatch => ({
+  addAdviceSlip: adviceSlipToAdd => dispatch({ type: "ADD_ADVICE_SLIP", adviceSlipToAdd })
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(ReactWithRedux)
