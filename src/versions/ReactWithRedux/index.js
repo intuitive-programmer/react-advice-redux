@@ -7,8 +7,6 @@ import AdviceSlipAPI from '../../apis/AdviceSlip'
 
 class ReactWithRedux extends Component {
   state = {
-    currentAdviceSlip: null,
-    currentIndex: 0,
     savedAdvice: [],
     displaySavedAdviceSlip: false
   }
@@ -30,9 +28,6 @@ class ReactWithRedux extends Component {
     if (alreadyExists) {
       this.getRandomAdviceSlip()
     } else {
-      this.setState(state => ({
-        currentAdviceSlip: adviceSlipToAdd
-      }))
       addAdviceSlip(adviceSlipToAdd)
     }
   }
@@ -48,35 +43,15 @@ class ReactWithRedux extends Component {
   }
 
   getNextAdviceSlip = () => {
-    const { currentIndex } = this.state
-    const { adviceSlips } = this.props
+    const { adviceSlips, currentIndex, updateCurrentIndex } = this.props
 
     const nextAdviceSlip = adviceSlips[currentIndex + 1]
 
     if (nextAdviceSlip) {
-      this.setState({
-        currentAdviceSlip: nextAdviceSlip,
-        currentIndex: currentIndex + 1
-      })
+      updateCurrentIndex("INCREASE")
     } else {
       this.getRandomAdviceSlip()
-      this.setState({
-        currentIndex: currentIndex + 1
-      })
-    }
-  }
-
-  getPreviousAdviceSlip = () => {
-    const { currentIndex } = this.state
-    const { adviceSlips } = this.props
-
-    const prevAdviceSlip = adviceSlips[currentIndex - 1]
-
-    if (prevAdviceSlip) {
-      this.setState({
-        currentAdviceSlip: prevAdviceSlip,
-        currentIndex: currentIndex - 1
-      })
+      updateCurrentIndex("INCREASE")
     }
   }
 
@@ -109,8 +84,7 @@ class ReactWithRedux extends Component {
   }
 
   hideSavedAdviceSlip = () => {
-    const { currentIndex } = this.state
-    const { adviceSlips } = this.props
+    const { adviceSlips, currentIndex } = this.props
 
     this.setState({
       currentAdviceSlip: adviceSlips[currentIndex],
@@ -135,16 +109,14 @@ class ReactWithRedux extends Component {
   }
 
   render() {
-    const { currentAdviceSlip, savedAdvice, displaySavedAdviceSlip } = this.state
+    const { savedAdvice, displaySavedAdviceSlip } = this.state
     const { history } = this.props
     return(
       <div className="react-advice-layout">
         <header className="grid-container">
           <AdviceSlip
-            adviceSlip={currentAdviceSlip}
             displayNavBtns={!displaySavedAdviceSlip}
             getNextAdviceSlip={this.getNextAdviceSlip}
-            getPreviousAdviceSlip={this.getPreviousAdviceSlip}
             saveCurrentAdviceSlip={this.saveCurrentAdviceSlip}
             hideSavedAdviceSlip={this.hideSavedAdviceSlip}
             deleteSavedAdvice={this.deleteSavedAdvice}
@@ -163,11 +135,13 @@ class ReactWithRedux extends Component {
 }
 
 const mapStateToProps = state => ({
-  adviceSlips: state.adviceSlips
+  adviceSlips: state.adviceSlips,
+  currentIndex: state.currentIndex
 })
 
 const mapDispatchToProps = dispatch => ({
-  addAdviceSlip: adviceSlipToAdd => dispatch({ type: "ADD_ADVICE_SLIP", adviceSlipToAdd })
+  addAdviceSlip: adviceSlipToAdd => dispatch({ type: "ADD_ADVICE_SLIP", adviceSlipToAdd }),
+  updateCurrentIndex: type => dispatch({ type })
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ReactWithRedux)
