@@ -6,24 +6,10 @@ import TabLayout from './layouts/TabLayout'
 import { getRandomAdviceSlip } from '../../reducers/AdviceSlipsReducer'
 
 class ReactWithRedux extends Component {
-
   componentDidMount() {
     const { getRandomAdviceSlip, adviceSlips } = this.props
     
     getRandomAdviceSlip(adviceSlips)
-  }
-
-  getNextAdviceSlip = () => {
-    const { getRandomAdviceSlip, adviceSlips, currentIndex, updateCurrentIndex } = this.props
-
-    const nextAdviceSlip = adviceSlips[currentIndex + 1]
-
-    if (nextAdviceSlip) {
-      updateCurrentIndex("INCREASE")
-    } else {
-      getRandomAdviceSlip(adviceSlips)
-      updateCurrentIndex("INCREASE")
-    }
   }
 
   render() {
@@ -31,7 +17,7 @@ class ReactWithRedux extends Component {
     return(
       <div className="react-advice-layout">
         <header className="grid-container">
-          <AdviceSlip getNextAdviceSlip={this.getNextAdviceSlip} />
+          <AdviceSlip />
         </header>
         <main>
           <TabLayout history={history} />
