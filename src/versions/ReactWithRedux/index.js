@@ -3,39 +3,25 @@ import { connect } from 'react-redux'
 
 import AdviceSlip from './components/AdviceSlip'
 import TabLayout from './layouts/TabLayout'
-import AdviceSlipAPI from '../../apis/AdviceSlip'
+import { getRandomAdviceSlip } from '../../reducers/AdviceSlipsReducer'
 
 class ReactWithRedux extends Component {
 
   componentDidMount() {
-    this.getRandomAdviceSlip()
-  }
-
-  async getRandomAdviceSlip() {
-    const { adviceSlips, addAdviceSlip } = this.props
-    const adviceSlipToAdd = await AdviceSlipAPI
-      .getRandomAdviceSlip()
-      .then(data => data.slip) 
+    const { getRandomAdviceSlip, adviceSlips } = this.props
     
-    const alreadyExists = adviceSlips
-      .find(slip => slip.slip_id === adviceSlipToAdd.slip_id)
-
-    if (alreadyExists) {
-      this.getRandomAdviceSlip()
-    } else {
-      addAdviceSlip(adviceSlipToAdd)
-    }
+    getRandomAdviceSlip(adviceSlips)
   }
 
   getNextAdviceSlip = () => {
-    const { adviceSlips, currentIndex, updateCurrentIndex } = this.props
+    const { getRandomAdviceSlip, adviceSlips, currentIndex, updateCurrentIndex } = this.props
 
     const nextAdviceSlip = adviceSlips[currentIndex + 1]
 
     if (nextAdviceSlip) {
       updateCurrentIndex("INCREASE")
     } else {
-      this.getRandomAdviceSlip()
+      getRandomAdviceSlip(adviceSlips)
       updateCurrentIndex("INCREASE")
     }
   }
@@ -61,9 +47,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  addAdviceSlip: adviceSlipToAdd => dispatch({
-    type: "ADD_ADVICE_SLIP", adviceSlipToAdd
-  }),
+  getRandomAdviceSlip: adviceSlips => dispatch(getRandomAdviceSlip(adviceSlips)),
   updateCurrentIndex: type => dispatch({ type })
 })
 
